@@ -2,22 +2,19 @@ const { readFileSync } = require('fs')
 
 const elfFoodCollection = readFileSync('./input.txt', 'utf-8').split('\n')
 
-let bagOfFood = 0
-const finishedList = elfFoodCollection.reduce((acc, cur) => {
-    if (cur === '') {
-        acc.push(bagOfFood)
-        bagOfFood = 0
-        return acc
-    }
-    bagOfFood += parseInt(cur)
+let elfIndex = 0
+const elfTotalArray = elfFoodCollection.reduce((acc, cur) => {
+    if (!acc[elfIndex]) acc[elfIndex] = 0
+    cur === '' ? elfIndex++ : (acc[elfIndex] += +cur)
     return acc
 }, [])
 
-console.log('The biggest load is: ' + Math.max(...finishedList))
+console.log('The largest calorie collection is: ' + Math.max(...elfTotalArray))
 console.log(
-    'The biggest bois collect: ' +
-        finishedList
+    'The biggest boys collected a total of ' +
+        elfTotalArray
             .sort()
-            .slice(-4, -1)
-            .reduce((acc, cur) => acc + cur, 0)
+            .slice(-4)
+            .reduce((acc, cur) => acc + cur, 0) +
+        ' calories.'
 )
