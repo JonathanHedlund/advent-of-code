@@ -2,10 +2,9 @@ const { readFileSync } = require('fs')
 
 const elfFoodCollection = readFileSync('./input.txt', 'utf-8').split('\n\n')
 
-const elfTotalArray = elfFoodCollection.reduce((acc, cur, index) => {
-    acc[index] += cur.split('\n').reduce((acc, cur) => acc + +cur, 0)
-    return acc
-}, new Array(elfFoodCollection.length).fill(0))
+const elfTotalArray = elfFoodCollection.map((elfInv) =>
+    elfInv.split('\n').reduce((acc, cur) => acc + +cur, 0)
+)
 
 console.log('The largest calorie collection is: ' + Math.max(...elfTotalArray))
 console.log(
