@@ -6,3 +6,6 @@ This repository is where I'll put all of my advent of code challenges. Hopefully
 Completed challenges 2022:
 1. Calorie Counting
 2. Rock Paper Scissors
+3. Rucksack Reorganization
+4. Camp Cleanup
+5. Supply Stacks
