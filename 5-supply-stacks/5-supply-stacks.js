@@ -30,17 +30,18 @@ const parseMove = function (moveString) {
 }
 
 const crateMover9000 = function (startPile, moves) {
-    const pile = createStackArray(startPile.split('\n'))
+    const piles = createStackArray(startPile.split('\n'))
 
     moves.forEach((moveString) => {
         const [amount, startPile, endPile] = parseMove(moveString)
 
         for (i = 0; i < amount; i++) {
-            const crateToMove = pile[startPile].shift()
-            pile[endPile].unshift(crateToMove)
+            const crateToMove = piles[startPile].shift()
+            piles[endPile].unshift(crateToMove)
         }
     })
-    return pile
+
+    return piles
 }
 
 const crateMover9001 = function (startPile, moves) {
@@ -60,11 +61,12 @@ const crateMover9001 = function (startPile, moves) {
             piles[endPile].unshift(crate)
         })
     })
+
     return piles
 }
 
-const getTopRow = function (pile) {
-    return pile.reduce((acc, cur) => {
+const getTopRow = function (piles) {
+    return piles.reduce((acc, cur) => {
         return (acc += cur[0])
     }, '')
 }
