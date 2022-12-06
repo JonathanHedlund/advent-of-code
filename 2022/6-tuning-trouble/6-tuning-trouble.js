@@ -17,10 +17,8 @@ const calcFirstUniqueString = function (messageLength, file) {
     for (i = 1; i <= file.length; i++) {
         if (buffer.length > messageLength) {
             buffer.shift()
-            buffer.push(file[i])
-        } else {
-            buffer.push(file[i])
         }
+        buffer.push(file[i])
 
         if (!twoOfSame(buffer) && i > 4) {
             return i
