@@ -10,6 +10,8 @@ Completed challenges 2022:
 3. Rucksack Reorganization
 4. Camp Cleanup
 5. Supply Stacks
+6. Tuning Trouble
+7. No Space Left On Device
 
 Completed challenges 2015
 
