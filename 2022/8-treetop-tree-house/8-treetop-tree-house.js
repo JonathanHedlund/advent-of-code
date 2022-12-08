@@ -9,14 +9,26 @@ input.forEach((tree) => {
     trees.push(tree.split(''))
 })
 
+const checkNorth = function (treeHeight, x, y) {
+    let clearTrees = 0
+
+    for (curX = x - 1; curX >= 0; curX--) {
+        ++clearTrees
+
+        if (treeHeight <= trees[curX][y]) {
+            return [false, clearTrees]
+        }
+    }
+    return [true, clearTrees]
+}
+
 const checkSouth = function (treeHeight, x, y) {
     let clearTrees = 0
-    if (x === trees.length - 1) return [true, clearTrees]
 
-    for (k = x + 1; k <= trees.length - 1; k++) {
+    for (curX = x + 1; curX <= trees.length - 1; curX++) {
         clearTrees++
 
-        if (treeHeight <= trees[k][y]) {
+        if (treeHeight <= trees[curX][y]) {
             return [false, clearTrees]
         }
     }
@@ -25,24 +37,11 @@ const checkSouth = function (treeHeight, x, y) {
 
 const checkEast = function (treeHeight, x, y) {
     let clearTrees = 0
-    if (y === trees.length - 1) return [true, clearTrees]
 
-    for (k = y + 1; k <= trees.length - 1; k++) {
+    for (curY = y + 1; curY <= trees.length - 1; curY++) {
         clearTrees++
-        if (treeHeight <= trees[x][k]) {
-            return [false, clearTrees]
-        }
-    }
-    return [true, clearTrees]
-}
 
-const checkNorth = function (treeHeight, x, y) {
-    let clearTrees = 0
-    if (x === 0) return [true, clearTrees]
-
-    for (k = x - 1; k >= 0; k--) {
-        ++clearTrees
-        if (treeHeight <= trees[k][y]) {
+        if (treeHeight <= trees[x][curY]) {
             return [false, clearTrees]
         }
     }
@@ -51,21 +50,31 @@ const checkNorth = function (treeHeight, x, y) {
 
 const checkWest = function (treeHeight, x, y) {
     let clearTrees = 0
-    if (y === 0) return [true, clearTrees]
 
-    for (k = y - 1; k >= 0; k--) {
+    for (curY = y - 1; curY >= 0; curY--) {
         ++clearTrees
-        if (treeHeight <= trees[x][k]) {
+        if (treeHeight <= trees[x][curY]) {
             return [false, clearTrees]
         }
     }
     return [true, clearTrees]
 }
 
+const checkIfEdge = function (x, y, trees) {
+    if (x === 0 || x === trees.length - 1) {
+        return true
+    }
+    if (y === 0 || y === trees.length - 1) {
+        return true
+    }
+    return false
+}
+
 const sum = trees.reduce(
     (tot, treeRow, x) => {
         treeRow.forEach(
             (tree, y) => {
+                if (checkIfEdge(x, y, trees)) return (tot[0] += 1)
                 const [visible1, score1] = checkSouth(tree, x, y)
                 const [visible2, score2] = checkNorth(tree, x, y)
                 const [visible3, score3] = checkEast(tree, x, y)
