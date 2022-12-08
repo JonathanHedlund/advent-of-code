@@ -1,9 +1,6 @@
 const { readFileSync } = require('fs')
 
-const input = readFileSync('./input.txt', 'utf8')
-    .trim('\n')
-    .trim('\n')
-    .split('\n')
+const input = readFileSync('./input.txt', 'utf8').trim('\n').split('\n')
 
 const route = []
 const filesInRoute = {}
@@ -19,16 +16,16 @@ input.forEach((command) => {
             return route.pop()
         }
 
-        if (!filesInRoute[curRoute]) filesInRoute[curRoute] = ''
+        if (!filesInRoute[curRoute]) filesInRoute[curRoute] = 0
         return route.push(location)
     }
 
     if (!command.startsWith('$') && !command.startsWith('dir')) {
         const fileSize = command.split(' ')[0]
 
-        if (!filesInRoute[curRoute]) filesInRoute[curRoute] = ''
+        if (!filesInRoute[curRoute]) filesInRoute[curRoute] = 0
 
-        filesInRoute[curRoute] += ` ${fileSize}`
+        filesInRoute[curRoute] += +fileSize
     }
 })
 
@@ -36,13 +33,8 @@ const dirMax = {}
 
 for (const key in filesInRoute) {
     for (const route in filesInRoute) {
-        const fileSizes = filesInRoute[route]
-            .split(' ')
-            .reduce((acc, cur) => (acc += +cur), 0)
-
         if (!dirMax[key]) dirMax[key] = 0
-
-        if (route.includes(key)) dirMax[key] += fileSizes
+        if (route.includes(key)) dirMax[key] += +filesInRoute[route]
     }
 }
 
