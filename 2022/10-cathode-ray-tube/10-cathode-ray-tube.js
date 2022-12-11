@@ -17,9 +17,9 @@ const task1 = cyclesToCheck.reduce((acc, cur) => {
     return (acc += xStrengths[+cur - 1] * +cur)
 }, 0)
 
-const task2 = xStrengths.map((cur, index) => {
-    return Math.abs((index % 40) - cur) <= 1 ? '&' : ' '
-})
+const task2 = xStrengths.map((cur, index) =>
+    Math.abs((index % 40) - cur) <= 1 ? '&' : ' '
+)
 
 console.log(task1)
 // console.log(task2)
